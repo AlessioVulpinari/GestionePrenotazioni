@@ -3,6 +3,7 @@ package alessiovulpinari.u2_w1_d5_Java.services;
 import alessiovulpinari.u2_w1_d5_Java.entities.Building;
 import alessiovulpinari.u2_w1_d5_Java.entities.WorkStation;
 import alessiovulpinari.u2_w1_d5_Java.enums.WorkStationType;
+import alessiovulpinari.u2_w1_d5_Java.exceptions.NotFoundException;
 import alessiovulpinari.u2_w1_d5_Java.exceptions.ToShortException;
 import alessiovulpinari.u2_w1_d5_Java.repositories.WorkStationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class WorkStationService {
     }
 
     public WorkStation findById(String id) {
-        return workStationRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Nessuna postazione trovato!"));
+        return workStationRepository.findById(UUID.fromString(id)).orElseThrow(() -> new NotFoundException(id));
     }
 
     public List<WorkStation> searchByCityAndStationType(WorkStationType workStationType, String city) {

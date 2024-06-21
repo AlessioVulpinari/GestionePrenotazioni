@@ -12,6 +12,7 @@ import java.util.UUID;
 @Repository
 public interface WorkStationRepository extends JpaRepository<WorkStation, UUID> {
 
+    // Query personalizzata per cercare le postazione di un determinato tipo, il cui edificio si trova in una determinata città
     @Query("SELECT w FROM WorkStation w WHERE w.workStationType = :workStationType AND w.building.city = :city")
     List<WorkStation> searchByCityAndStationType(WorkStationType workStationType, String city);
 }

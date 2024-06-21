@@ -1,8 +1,8 @@
 package alessiovulpinari.u2_w1_d5_Java.services;
 
-import alessiovulpinari.u2_w1_d5_Java.entities.Building;
 import alessiovulpinari.u2_w1_d5_Java.entities.User;
-import alessiovulpinari.u2_w1_d5_Java.exceptions.AlredyExistingEmailException;
+import alessiovulpinari.u2_w1_d5_Java.exceptions.AlreadyExistingEmailException;
+import alessiovulpinari.u2_w1_d5_Java.exceptions.NotFoundException;
 import alessiovulpinari.u2_w1_d5_Java.exceptions.ToShortException;
 import alessiovulpinari.u2_w1_d5_Java.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class UserService {
     public void saveUser(User newUser) {
 
         if (userRepository.existsByEmail(newUser.getEmail())) {
-            throw new AlredyExistingEmailException(newUser.getEmail());
+            throw new AlreadyExistingEmailException(newUser.getEmail());
         }
 
         if (newUser.getCompleteName().length() <= 3 ) throw new ToShortException(newUser.getCompleteName());
@@ -30,6 +30,6 @@ public class UserService {
     }
 
     public User findById(String id) {
-        return userRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Nessun utente trovato!"));
+        return userRepository.findById(UUID.fromString(id)).orElseThrow(() -> new NotFoundException(id));
     }
 }

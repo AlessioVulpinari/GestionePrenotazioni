@@ -9,5 +9,6 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+    // Query per verificare l'esistenza di un utente con la mail ricevuta tramite parametro
     boolean existsByEmail(String email);
 }

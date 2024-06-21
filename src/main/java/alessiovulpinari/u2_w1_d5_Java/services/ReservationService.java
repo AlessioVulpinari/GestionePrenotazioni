@@ -1,7 +1,7 @@
 package alessiovulpinari.u2_w1_d5_Java.services;
 
 import alessiovulpinari.u2_w1_d5_Java.entities.Reservation;
-import alessiovulpinari.u2_w1_d5_Java.exceptions.AlredyExistingReservationException;
+import alessiovulpinari.u2_w1_d5_Java.exceptions.AlreadyExistingReservationException;
 import alessiovulpinari.u2_w1_d5_Java.repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,11 @@ public class ReservationService {
         if (newReservation.getReservationDate().isBefore(LocalDate.now())) throw new RuntimeException("Devi inserire una data che sia successiva alla data odierna!");
 
         if (reservationRepository.existsByReservationDateAndWorkStation(newReservation.getReservationDate(), newReservation.getWorkStation())) {
-            throw new AlredyExistingReservationException(newReservation.getReservationDate(), newReservation.getWorkStation().getBuilding().getName());
+            throw new AlreadyExistingReservationException(newReservation.getReservationDate(), newReservation.getWorkStation().getBuilding().getName());
         }
 
         if (reservationRepository.existsByReservationDateAndUser(newReservation.getReservationDate(), newReservation.getUser())) {
-            throw new RuntimeException("Hai già una prenotazione per quella data!");
+            throw new RuntimeException("Hai già una prenotazione per questa data: " + newReservation.getReservationDate());
         }
 
         reservationRepository.save(newReservation);

@@ -12,8 +12,11 @@ import java.util.UUID;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, UUID> {
 
+    /* Query per verificare l'esistenza di una prenotazione con una determinata data di prenotazione
+    e per un determinata locazione. */
     boolean existsByReservationDateAndWorkStation (LocalDate date, WorkStation workStation);
 
+    // Query per verificare l'esistenza di una prenotazione di un utente a una determinata data
     boolean existsByReservationDateAndUser(LocalDate date, User user);
 
 }

@@ -9,5 +9,6 @@ import java.util.UUID;
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, UUID> {
 
+    // Verifica l'esistenza di un edificio con un determinato nome e un determinato indirizzo
     boolean existsByAddressAndName(String address, String name);
 }

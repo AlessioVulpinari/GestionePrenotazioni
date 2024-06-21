@@ -1,7 +1,7 @@
 package alessiovulpinari.u2_w1_d5_Java.exceptions;
 
-public class AlredyExistingEmailException extends RuntimeException{
-    public AlredyExistingEmailException(String email) {
+public class AlreadyExistingEmailException extends RuntimeException{
+    public AlreadyExistingEmailException(String email) {
         super("Esiste già un utente con questa mail: " + email);
     }
 }
