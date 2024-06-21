@@ -15,6 +15,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -48,13 +49,17 @@ public class MainRunner implements CommandLineRunner {
         User user = new User(faker.dragonBall().character(), faker.name().fullName(), faker.internet().emailAddress());
        // userService.saveUser(user);
 
-        Reservation reservation = new Reservation(LocalDate.now().plusDays(2), userService.findById("6a1eed02-3932-4bce-8e8c-3ba5400a4055"), workStationService.findById("4c53beba-8511-448a-958c-4d941633f998") );
+        Reservation reservation = new Reservation(LocalDate.now().plusDays(3), userService.findById("6a1eed02-3932-4bce-8e8c-3ba5400a4055"), workStationService.findById("4c53beba-8511-448a-958c-4d941633f998") );
 
-        try {
-            reservationService.saveReservation(reservation);
-        } catch (RuntimeException err) {
-            System.out.println(err.getMessage());
-        }
+//        try {
+//            reservationService.saveReservation(reservation);
+//        } catch (RuntimeException err) {
+//            System.out.println(err.getMessage());
+//        }
+
+        List<WorkStation> workStations = workStationService.searchByCityAndStationType(WorkStationType.MEETING_ROOM, "Krajciktown");
+
+         workStations.forEach(System.out::println);
 
     }
 }
