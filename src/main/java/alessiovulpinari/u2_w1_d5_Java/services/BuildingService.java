@@ -7,6 +7,8 @@ import alessiovulpinari.u2_w1_d5_Java.repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class BuildingService {
 
@@ -24,5 +26,9 @@ public class BuildingService {
         buildingRepository.save(newBuilding);
 
         System.out.println("L'edificio con id: " + newBuilding.getBuildingId() + " è stato aggiunto con successo!");
+    }
+
+    public Building findById(String id) {
+        return buildingRepository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Nessun edificio trovato!"));
     }
 }

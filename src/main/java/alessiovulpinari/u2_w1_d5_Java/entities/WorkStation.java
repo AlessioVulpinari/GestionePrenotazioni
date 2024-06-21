@@ -24,6 +24,7 @@ public class WorkStation {
     @Column(name = "descrizione", nullable = false)
     private String description;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_postazione", nullable = false)
     private WorkStationType workStationType;
 
@@ -37,12 +38,11 @@ public class WorkStation {
     @JoinColumn(name = "id_edificio")
     private Building building;
 
-    public WorkStation(Building building, int maxPerson, WorkStationType workStationType, String description, UUID workStationId) {
+    public WorkStation(Building building, int maxPerson, WorkStationType workStationType, String description) {
         this.building = building;
         this.maxPerson = maxPerson;
         this.workStationType = workStationType;
         this.description = description;
-        this.workStationId = workStationId;
     }
 
     @Override
