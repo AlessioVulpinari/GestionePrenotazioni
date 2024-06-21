@@ -17,11 +17,15 @@ public class ReservationService {
 
     public void saveReservation(Reservation newReservation) {
 
+        if (newReservation.getReservationDate().isBefore(LocalDate.now())) throw new RuntimeException("Devi inserire una data che sia successiva alla data odierna!");
+
         if (reservationRepository.existsByReservationDateAndWorkStation(newReservation.getReservationDate(), newReservation.getWorkStation())) {
             throw new AlredyExistingReservationException(newReservation.getReservationDate(), newReservation.getWorkStation().getBuilding().getName());
         }
 
-        if (newReservation.getReservationDate().isBefore(LocalDate.now())) throw new RuntimeException("Devi inserire una data che sia successiva alla data odierna!");
+        if (reservationRepository.existsByReservationDateAndUser(newReservation.getReservationDate(), newReservation.getUser())) {
+            throw new RuntimeException("Hai già una prenotazione per quella data!");
+        }
 
         reservationRepository.save(newReservation);
 
